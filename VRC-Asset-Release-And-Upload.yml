@@ -28,6 +28,7 @@ jobs:
     steps:
       - name: Check if package.json exists
         run: |
+          cd ${{ inputs.ASSETS_PATH }}
           if [ ! -f package.json ]; then
             echo "package.json not found"
             exit 1
@@ -36,6 +37,7 @@ jobs:
       - name: Get package.json
         id: get_package_json
         run: |
+          cd ${{ inputs.ASSETS_PATH }}
           {
             echo 'package_json<<"""'
             echo $(cat package.json)
