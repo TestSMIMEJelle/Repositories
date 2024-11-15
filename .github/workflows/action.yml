@@ -17,7 +17,7 @@ on:
         type: string
       ARTIFACT_DURATION:
         required: true
-        type: int
+        type: number
       CHANGELOG:
         required: true
         type: string
@@ -76,7 +76,7 @@ jobs:
         run: "echo ${{ inputs.CHANGELOG }} > CHANGELOG"
 
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           name: "${{ steps.job_data.outputs.package_display_name }} ${{ steps.job_data.outputs.version }}"
           body_path: CHANGELOG
@@ -88,7 +88,7 @@ jobs:
           SOURCE_TAG: ${{ steps.job_data.outputs.version }}
         
       - name: Add server-json to Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: server-json
           path: ${{ steps.create_packages.outputs.serverPackageJsonPath }}
