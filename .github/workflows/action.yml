@@ -9,6 +9,9 @@ on:
       REPOSITORY:
         required: true
         type: string
+      TAG:
+        required: true
+        type: string
 
 env:
   ASSETS_PATH: ./Assets
