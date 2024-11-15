@@ -67,18 +67,21 @@ jobs:
           unityReleaseUrl: 'https://github.com/${{ github.repository }}/releases/download/${{ steps.job_data.outputs.version }}/${{ steps.job_data.outputs.package_name }}-${{ steps.job_data.outputs.version }}.unitypackage'
           releaseVersion: '${{ steps.job_data.outputs.version }}'
 
+      - name: Create Changelog
+        run: "echo ${{ inputs.CHANGELOG }} > CHANGELOG"
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
         with:
           name: "${{ steps.job_data.outputs.package_display_name }} ${{ steps.job_data.outputs.version }}"
+          body_path: CHANGELOG
           files: |
             ${{ steps.create_packages.outputs.unityPackagePath }}
             ${{ steps.create_packages.outputs.vccPackagePath }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SOURCE_TAG: ${{ steps.job_data.outputs.version }}
-
+        
       - name: Add server-json to Artifacts
         uses: actions/upload-artifact@v3
         with:
