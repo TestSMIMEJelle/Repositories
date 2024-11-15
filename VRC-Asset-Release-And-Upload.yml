@@ -18,6 +18,9 @@ on:
       ARTIFACT_DURATION:
         required: true
         type: int
+      CHANGELOG:
+        required: true
+        type: string
 
 jobs:
   build:
